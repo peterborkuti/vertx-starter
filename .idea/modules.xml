@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/vertx-starter.iml" filepath="$PROJECT_DIR$/vertx-starter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vertx-starter_main.iml" filepath="$PROJECT_DIR$/.idea/modules/vertx-starter_main.iml" group="vertx-starter" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/vertx-starter_test.iml" filepath="$PROJECT_DIR$/.idea/modules/vertx-starter_test.iml" group="vertx-starter" />
+    </modules>
+  </component>
+</project>
