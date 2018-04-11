@@ -1,5 +1,6 @@
 package io.vertx.starter;
 
+import com.github.mauricio.async.db.mysql.message.client.HandshakeResponseMessage;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
@@ -17,9 +18,8 @@ public class MainVerticle extends AbstractVerticle {
 		System.out.println("MainVerticle started!");
 
     JsonObject mySQLClientConfig = new JsonObject()
-      .put("host", "localhost")
+      .put("username", "root")
       .put("database", "vertx")
-      .put("user", "root")
       .put("password", "root");
 
     vertx.deployVerticle(new SaverVerticle(mySQLClientConfig, "mytopic"), id -> vertexId.add(id.result()));

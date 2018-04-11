@@ -26,6 +26,11 @@ public class SaverVerticle extends AbstractVerticle {
       if (!res.succeeded()) {
         System.out.println("Error inserting data:" + data);
       }
+      else {
+
+        connection.close();
+
+      }
     });
   }
 
@@ -35,8 +40,6 @@ public class SaverVerticle extends AbstractVerticle {
         SQLConnection connection = res.result();
 
         saveData(connection, data);
-
-        connection.close();
       } else {
         System.out.println("Error: got no connection");
       }
