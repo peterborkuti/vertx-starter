@@ -1,68 +1,36 @@
 package io.vertx.starter;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.json.JsonArray;
-import io.vertx.core.json.JsonObject;
-import io.vertx.ext.asyncsql.MySQLClient;
-import io.vertx.ext.sql.SQLClient;
-import io.vertx.ext.sql.SQLConnection;
+import io.vertx.core.eventbus.MessageConsumer;
 
-public class SaverVerticle extends AbstractVerticle {
-  public static final String INSERT="insert into data values (?)";
+public class SaverVerticle<T> extends AbstractVerticle {
+  public static final String DEFAULT_TOPIC = "defaultTopic";
 
-  private JsonObject dbConfig = null;
-  private SQLClient sqlClient = null;
-  private String topicName = "defaultTopic";
+  private String topicName;
+  private DataSaver saver;
+  private MessageConsumer<T> consumer;
 
-  public SaverVerticle(JsonObject dbConfig, String topicName) {
-    this.dbConfig = dbConfig;
+  private SaverVerticle() {}
+
+  public SaverVerticle(DataSaver<T> saver, String topicName) {
     this.topicName = topicName;
+    this.saver = saver;
   }
 
-  private void saveData(SQLConnection connection, String data) {
-    JsonArray params = new JsonArray().add(data);
-
-    connection.updateWithParams(INSERT, params, res -> {
-      if (!res.succeeded()) {
-        System.out.println("Error inserting data:" + data);
-      }
-      else {
-
-        connection.close();
-
-      }
-    });
-  }
-
-  private void save(String data) {
-    sqlClient.getConnection(res -> {
-      if (res.succeeded()) {
-        SQLConnection connection = res.result();
-
-        saveData(connection, data);
-      } else {
-        System.out.println("Error: got no connection");
-      }
-    });
+  public SaverVerticle(DataSaver<T> saver) {
+    this(saver, DEFAULT_TOPIC);
   }
 
   @Override
   public void start() throws Exception {
-    sqlClient = MySQLClient.createShared(vertx, dbConfig);
-    sqlClient.getConnection(res -> {
-      if (res.succeeded()) {
-        SQLConnection connection = res.result();
-        vertx.eventBus().consumer(topicName, message -> save(message.body().toString()) );
-        connection.close();
-      } else {
-        System.out.println("Error: got no connection");
-      }
-    });
-
+    consumer = vertx.eventBus().consumer(topicName, saver);
   }
 
   @Override
   public void stop() throws Exception {
-    sqlClient.close();
+    if (consumer.isRegistered()) {
+      consumer.unregister();
+    }
+
   }
 }
