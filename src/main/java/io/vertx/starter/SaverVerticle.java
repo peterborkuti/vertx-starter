@@ -3,7 +3,7 @@ package io.vertx.starter;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.MessageConsumer;
 
-public class SaverVerticle<T> extends AbstractVerticle {
+public class SaverVerticle<T extends Data> extends AbstractVerticle {
   public static final String DEFAULT_TOPIC = "defaultTopic";
 
   private String topicName;

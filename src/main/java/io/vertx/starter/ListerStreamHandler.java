@@ -6,7 +6,7 @@ import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.sql.SQLRowStream;
 
-public class QueryStreamHandler implements Handler<AsyncResult<SQLRowStream>> {
+public class ListerStreamHandler<T> implements Handler<AsyncResult<SQLRowStream>> {
   private void processResult(SQLRowStream sqlRowStream) {
     sqlRowStream
       .resultSetClosedHandler(v -> {
@@ -37,6 +37,6 @@ public class QueryStreamHandler implements Handler<AsyncResult<SQLRowStream>> {
     }
   }
 
-  private final Logger logger = LoggerFactory.getLogger(QueryStreamHandler.class.getName());
+  private final Logger logger = LoggerFactory.getLogger(ListerStreamHandler.class.getName());
 
 }

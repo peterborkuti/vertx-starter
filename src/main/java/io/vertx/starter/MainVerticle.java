@@ -27,8 +27,8 @@ public class MainVerticle extends AbstractVerticle {
     sqlClientForSaving = MySQLClient.createNonShared(vertx, mySQLClientConfig);
     sqlClientForListing = MySQLClient.createNonShared(vertx, mySQLClientConfig);
 
-    DataSaver<String> dataSaver = new DataSaver<String>(sqlClientForSaving);
-    DataLister<String> dataLister = new DataLister<String>(sqlClientForListing);
+    DataSaver<Data> dataSaver = new DataSaver<>(sqlClientForSaving);
+    DataLister<Data> dataLister = new DataLister<>(sqlClientForListing, new ListerStreamHandler());
 
     vertx.deployVerticle(new SaverVerticle(dataSaver, "mytopic"), id -> vertexId.add(id.result()));
     vertx.deployVerticle(new ListerVerticle(dataLister), id -> vertexId.add(id.result()));

@@ -7,14 +7,15 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 
-public class DataSaver<T> extends AbstractDataProcessor<Message<T>> {
+public class DataSaver<T extends Data> extends AbstractDataProcessor<Message<T>> {
   public DataSaver(SQLClient sqlClient) {
     super(sqlClient, "insert into data values (?)");
   }
 
   @Override
   public void processData(SQLConnection connection, Message<T> data) {
-    JsonArray params = new JsonArray().add(data.body().toString());
+    JsonArray params = data.body().toJsonArray();
+    System.out.println("save" + data.body());
 
     connection.updateWithParams(SQL, params, res -> {
       if (!res.succeeded()) {
