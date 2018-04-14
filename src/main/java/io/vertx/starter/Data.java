@@ -22,15 +22,19 @@ public class Data {
     return createFromJsonObject(new JsonObject(js));
   }
 
-  public String toString() {
-    return String.valueOf(data);
-  }
-
   public JsonArray toJsonArray() {
     return new JsonArray().add(data);
   }
 
   public JsonObject toJsonObject() {
     return new JsonObject().put("data", data);
+  }
+
+  public String toJsonString() {
+    return toJsonObject().encode();
+  }
+
+  public String toString() {
+    return toJsonObject().encodePrettily();
   }
 }

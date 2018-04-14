@@ -5,21 +5,21 @@ import io.vertx.core.eventbus.MessageConsumer;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 
-public class SaverVerticle<T extends Data> extends AbstractVerticle {
+public class SaverVerticle extends AbstractVerticle {
   public static final String DEFAULT_TOPIC = "defaultTopic";
 
   private String topicName;
-  private DataSaver<T> saver;
-  private MessageConsumer<T> consumer;
+  private DataSaver saver;
+  private MessageConsumer consumer;
 
   private SaverVerticle() {}
 
-  public SaverVerticle(DataSaver<T> saver, String topicName) {
+  public SaverVerticle(DataSaver saver, String topicName) {
     this.topicName = topicName;
     this.saver = saver;
   }
 
-  public SaverVerticle(DataSaver<T> saver) {
+  public SaverVerticle(DataSaver saver) {
     this(saver, DEFAULT_TOPIC);
   }
 
