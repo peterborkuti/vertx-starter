@@ -2,12 +2,14 @@ package io.vertx.starter;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.MessageConsumer;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 
 public class SaverVerticle<T extends Data> extends AbstractVerticle {
   public static final String DEFAULT_TOPIC = "defaultTopic";
 
   private String topicName;
-  private DataSaver saver;
+  private DataSaver<T> saver;
   private MessageConsumer<T> consumer;
 
   private SaverVerticle() {}
@@ -24,6 +26,7 @@ public class SaverVerticle<T extends Data> extends AbstractVerticle {
   @Override
   public void start() throws Exception {
     consumer = vertx.eventBus().consumer(topicName, saver);
+    logger.info("Start and consume messages from " + topicName);
   }
 
   @Override
@@ -33,4 +36,6 @@ public class SaverVerticle<T extends Data> extends AbstractVerticle {
     }
 
   }
+
+  private final Logger logger = LoggerFactory.getLogger(SaverVerticle.class.getName());
 }

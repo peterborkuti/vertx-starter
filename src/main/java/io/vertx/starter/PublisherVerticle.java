@@ -3,6 +3,9 @@ package io.vertx.starter;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
+import io.vertx.core.eventbus.DeliveryOptions;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 
 import java.util.Random;
 
@@ -14,32 +17,36 @@ public class PublisherVerticle extends AbstractVerticle {
   private String topicName = "defaultTopic";
   private String id = PublisherVerticle.class.getCanonicalName();
   private Random rnd = new Random();
+  private DataMessageCodec dmc = new DataMessageCodec();
+  private DeliveryOptions options = new DeliveryOptions().setCodecName(dmc.name());
 
   public PublisherVerticle(String topicName, String id) {
     this.topicName = topicName;
     this.id = id;
   }
 
-	private class RandomGenerator implements Handler<Long> {
+	private class RandomDataPublicator implements Handler<Long> {
     @Override
     public void handle(Long aLong) {
-      vertx.eventBus().publish(topicName, rnd.nextInt());
-      System.out.println(id + ": " + counter);
+      int r = rnd.nextInt();
+      vertx.eventBus().publish(topicName, new Data(r), options);
+      logger.info(r + " was published to " + topicName);
     }
   }
 
 	@Override
 	public void start(Future<Void> startFuture) {
-		System.out.println("Publisher started!");
-    timerId = vertx.setPeriodic(3000, new RandomGenerator());
-    System.out.println("Timer started!");
+    vertx.eventBus().registerCodec(dmc);
+    timerId = vertx.setPeriodic(3000, new RandomDataPublicator());
+    logger.info("Publisher started.");
 	}
 
 	@Override
 	public void stop(Future stopFuture) throws Exception {
-		System.out.println("Publisher stopped!");
     vertx.cancelTimer(timerId);
-    System.out.println("Timer stopped!");
+    vertx.eventBus().unregisterCodec(dmc.name());
 	}
+
+  private final Logger logger = LoggerFactory.getLogger(PublisherVerticle.class.getName());
 
 }

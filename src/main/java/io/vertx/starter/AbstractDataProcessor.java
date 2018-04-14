@@ -24,6 +24,7 @@ public abstract class AbstractDataProcessor<T> implements Handler<T> {
       if (res.succeeded()) {
         SQLConnection connection = res.result();
 
+        logger.info("call processData");
         processData(connection, data);
 
         connection.close();
@@ -35,6 +36,7 @@ public abstract class AbstractDataProcessor<T> implements Handler<T> {
 
   @Override
   public void handle(T event) {
+    logger.info(AbstractDataProcessor.class.getName() + " handle");
     process(event);
   }
 

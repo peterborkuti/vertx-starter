@@ -31,14 +31,14 @@ public class MainVerticle extends AbstractVerticle {
     DataLister<Data> dataLister = new DataLister<>(sqlClientForListing, new ListerStreamHandler());
 
     vertx.deployVerticle(new SaverVerticle(dataSaver, "mytopic"), id -> vertexId.add(id.result()));
-    vertx.deployVerticle(new ListerVerticle(dataLister), id -> vertexId.add(id.result()));
+    //vertx.deployVerticle(new ListerVerticle(dataLister), id -> vertexId.add(id.result()));
 
-		vertx.deployVerticle(new PublisherVerticle("mytopic", "pub1"), id -> vertexId.add(id.result()));
-    vertx.deployVerticle(new PublisherVerticle("mytopic", "pub2"), id -> vertexId.add(id.result()));
-    vertx.deployVerticle(new PublisherVerticle("mytopic", "pub3"), id -> vertexId.add(id.result()));
+		//vertx.deployVerticle(new PublisherVerticle("mytopic", "pub1"), id -> vertexId.add(id.result()));
+    //vertx.deployVerticle(new PublisherVerticle("mytopic", "pub2"), id -> vertexId.add(id.result()));
+    //vertx.deployVerticle(new PublisherVerticle("mytopic", "pub3"), id -> vertexId.add(id.result()));
     vertx.deployVerticle(new PublisherVerticle("mytopic", "pub4"), id -> vertexId.add(id.result()));
 
-    vertx.deployVerticle(new ConsumerVerticle("mytopic", "con1"), id -> vertexId.add(id.result()));
+    //vertx.deployVerticle(new ConsumerVerticle("mytopic", "con1"), id -> vertexId.add(id.result()));
 	}
 
 	@Override
