@@ -12,8 +12,8 @@ import io.vertx.ext.sql.SQLConnection;
 public class ReaderDataProcessor extends AbstractDataProcessor {
   private DBReaderStreamHandler streamHandler;
 
-  public ReaderDataProcessor(SQLClient sqlClient, DBReaderStreamHandler streamHandler) {
-    super(sqlClient, "select msg from data");
+  public ReaderDataProcessor(SQLClient sqlClient, DBReaderStreamHandler streamHandler, String listData) {
+    super(sqlClient, listData);
     this.streamHandler = streamHandler;
   }
 

@@ -10,8 +10,8 @@ import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 
 public class WriterDataProcessor extends AbstractDataProcessor {
-  public WriterDataProcessor(SQLClient sqlClient) {
-    super(sqlClient, "insert into data values (?)");
+  public WriterDataProcessor(SQLClient sqlClient, String insertData) {
+    super(sqlClient, insertData);
   }
 
   public void processData(SQLConnection connection, Message<String> data) {

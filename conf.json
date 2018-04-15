@@ -1,0 +1,13 @@
+{
+  "db": {
+    "username": "root",
+    "database": "vertx",
+    "password": "root"
+  },
+  "sql": {
+    "checktable": "select * from data",
+    "createtable": "create table data (msg int)",
+    "listdata": "select msg from data",
+    "insertdata": "insert into data values (?)"
+  }
+}
