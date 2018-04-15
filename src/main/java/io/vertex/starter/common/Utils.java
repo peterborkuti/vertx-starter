@@ -58,4 +58,10 @@ public class Utils {
 
     return sqlConfig;
   }
+
+  public static JsonObject getHttpConfig(JsonObject config) {
+    JsonObject sqlConfig = config.getJsonObject("http");
+
+    return sqlConfig;
+  }
 }

@@ -3,16 +3,15 @@ package io.vertx.starter;
 import io.vertex.starter.common.Utils;
 import io.vertex.starter.common.data.Data;
 import io.vertex.starter.common.data.DataProvider;
-import io.vertex.starter.db.AbstractDataProcessor;
 import io.vertex.starter.db.DataProcessorVerticle;
 import io.vertex.starter.db.impl.ReaderDataProcessor;
 import io.vertex.starter.db.impl.WriterDataProcessor;
 import io.vertex.starter.input.impl.ConstantDataProvider;
 import io.vertex.starter.input.PeriodicPublisherVerticle;
 import io.vertex.starter.input.impl.CounterDataProvider;
-import io.vertex.starter.input.impl.RandomDataProvider;
 import io.vertex.starter.common.streamhandler.DBReaderStreamHandler;
-import io.vertex.starter.output.LoggerSQLRowStreamHandler;
+import io.vertex.starter.output.log.LoggerSQLRowStreamHandler;
+import io.vertex.starter.output.rest.WebServerVerticle;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
@@ -40,8 +39,15 @@ public class MainVerticle extends AbstractVerticle {
 
     createDBReaderVerticle(mySQLClientConfig);
     createDBWriterVerticle(mySQLClientConfig);
-    triggerDBReader();
+    //triggerDBReader();
     triggerDBWriter();
+
+    vertx.deployVerticle(
+      new WebServerVerticle(
+        Utils.getHttpConfig(config()).getInteger("port"),
+        Utils.getSQLConfig(config()).getString("listdata")
+      )
+    );
 	}
 
 
@@ -71,7 +77,7 @@ public class MainVerticle extends AbstractVerticle {
   private void triggerDBWriter() {
     DataProvider dp = new CounterDataProvider();
 
-    vertx.deployVerticle(new PeriodicPublisherVerticle("triggerWriter", dp, 100));
+    vertx.deployVerticle(new PeriodicPublisherVerticle("triggerWriter", dp, 2000));
   }
 
   private void triggerDBReader() {

@@ -9,5 +9,14 @@
     "createtable": "create table data (msg int)",
     "listdata": "select msg from data",
     "insertdata": "insert into data values (?)"
+  },
+  "rest": {
+    "api": "api",
+    "last": "getLast",
+    "all": "getAll",
+    "list": "list"
+  },
+  "http": {
+    "port": 8082
   }
 }

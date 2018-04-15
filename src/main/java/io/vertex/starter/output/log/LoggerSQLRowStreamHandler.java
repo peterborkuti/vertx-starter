@@ -1,4 +1,4 @@
-package io.vertex.starter.output;
+package io.vertex.starter.output.log;
 
 import io.vertex.starter.common.data.Data;
 import io.vertex.starter.common.streamhandler.SQLRowStreamHandler;
@@ -18,4 +18,11 @@ public class LoggerSQLRowStreamHandler implements SQLRowStreamHandler {
   }
 
   private final Logger logger = LoggerFactory.getLogger(LoggerSQLRowStreamHandler.class.getName());
+
+  @Override
+  public String endHandler() {
+    logger.info("End");
+
+    return "";
+  }
 }

@@ -25,9 +25,7 @@ public class DBReaderStreamHandler<T> implements Handler<AsyncResult<SQLRowStrea
 
       .handler(rowStreamHandler)
 
-      .endHandler(v -> {
-        logger.debug("Stream ends");
-      });
+      .endHandler(v -> rowStreamHandler.endHandler());
   }
 
 
