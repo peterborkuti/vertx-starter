@@ -1,5 +1,7 @@
-package io.vertx.starter;
+package io.vertex.starter.db.impl;
 
+import io.vertex.starter.common.data.Data;
+import io.vertex.starter.db.AbstractDataProcessor;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.logging.Logger;
@@ -7,12 +9,11 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 
-public class DataSaver extends AbstractDataProcessor<Message<String>> {
-  public DataSaver(SQLClient sqlClient) {
+public class WriterDataProcessor extends AbstractDataProcessor {
+  public WriterDataProcessor(SQLClient sqlClient) {
     super(sqlClient, "insert into data values (?)");
   }
 
-  @Override
   public void processData(SQLConnection connection, Message<String> data) {
     JsonArray params = Data.createFromJsonString(data.body()).toJsonArray();
     System.out.println("save" + data.body());
@@ -24,5 +25,5 @@ public class DataSaver extends AbstractDataProcessor<Message<String>> {
     });
   }
 
-  private final Logger logger = LoggerFactory.getLogger(DataSaver.class.getName());
+  private final Logger logger = LoggerFactory.getLogger(WriterDataProcessor.class.getName());
 }

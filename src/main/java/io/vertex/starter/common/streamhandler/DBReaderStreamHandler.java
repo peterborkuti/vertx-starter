@@ -1,4 +1,4 @@
-package io.vertx.starter;
+package io.vertex.starter.common.streamhandler;
 
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -6,7 +6,15 @@ import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.sql.SQLRowStream;
 
-public class ListerStreamHandler<T> implements Handler<AsyncResult<SQLRowStream>> {
+public class DBReaderStreamHandler<T> implements Handler<AsyncResult<SQLRowStream>> {
+  private SQLRowStreamHandler rowStreamHandler;
+
+  private DBReaderStreamHandler() {}
+
+  public DBReaderStreamHandler(SQLRowStreamHandler rowStreamHandler) {
+    this.rowStreamHandler = rowStreamHandler;
+  }
+
   private void processResult(SQLRowStream sqlRowStream) {
     sqlRowStream
       .resultSetClosedHandler(v -> {
@@ -15,9 +23,7 @@ public class ListerStreamHandler<T> implements Handler<AsyncResult<SQLRowStream>
         //sqlRowStream.moreResults();
       })
 
-      .handler(row -> {
-        System.out.println(row.getString(0));
-      })
+      .handler(rowStreamHandler)
 
       .endHandler(v -> {
         logger.debug("Stream ends");
@@ -37,6 +43,6 @@ public class ListerStreamHandler<T> implements Handler<AsyncResult<SQLRowStream>
     }
   }
 
-  private final Logger logger = LoggerFactory.getLogger(ListerStreamHandler.class.getName());
+  private final Logger logger = LoggerFactory.getLogger(DBReaderStreamHandler.class.getName());
 
 }

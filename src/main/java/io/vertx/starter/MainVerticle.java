@@ -1,5 +1,15 @@
 package io.vertx.starter;
 
+import io.vertex.starter.common.data.Data;
+import io.vertex.starter.common.data.DataProvider;
+import io.vertex.starter.db.DataProcessorVerticle;
+import io.vertex.starter.db.impl.ReaderDataProcessor;
+import io.vertex.starter.db.impl.WriterDataProcessor;
+import io.vertex.starter.input.impl.ConstantDataProvider;
+import io.vertex.starter.input.PeriodicPublisherVerticle;
+import io.vertex.starter.input.impl.RandomDataProvider;
+import io.vertex.starter.common.streamhandler.DBReaderStreamHandler;
+import io.vertex.starter.output.LoggerSQLRowStreamHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.json.JsonObject;
@@ -12,8 +22,38 @@ import java.util.List;
 public class MainVerticle extends AbstractVerticle {
 
 	private List<String> vertexId = new ArrayList<String>();
-  private SQLClient sqlClientForSaving;
-  private SQLClient sqlClientForListing;
+  private SQLClient sqlWriterClient;
+  private SQLClient sqlReaderClient;
+
+  private void createDBReaderVerticle(JsonObject sqlClientConfig) {
+    sqlReaderClient = MySQLClient.createNonShared(vertx, sqlClientConfig);
+
+    DBReaderStreamHandler streamHandler = new DBReaderStreamHandler(new LoggerSQLRowStreamHandler());
+
+    ReaderDataProcessor rdp = new ReaderDataProcessor(sqlReaderClient, streamHandler);
+
+    vertx.deployVerticle(new DataProcessorVerticle(rdp, "triggerReader"));
+  }
+
+  private void createDBWriterVerticle(JsonObject sqlClientConfig) {
+    sqlWriterClient = MySQLClient.createNonShared(vertx, sqlClientConfig);
+
+    WriterDataProcessor wdp = new WriterDataProcessor(sqlWriterClient);
+
+    vertx.deployVerticle(new DataProcessorVerticle(wdp, "triggerWriter"));
+  }
+
+  private void triggerDBWriter() {
+    DataProvider dp = new RandomDataProvider();
+
+    vertx.deployVerticle(new PeriodicPublisherVerticle("triggerWriter", dp, 1000));
+  }
+
+  private void triggerDBReader() {
+    DataProvider dp = new ConstantDataProvider(new Data(1));
+
+    vertx.deployVerticle(new PeriodicPublisherVerticle("triggerReader", dp, 5000));
+  }
 
 	@Override
 	public void start(Future<Void> startFuture) {
@@ -24,29 +64,18 @@ public class MainVerticle extends AbstractVerticle {
       .put("database", "vertx")
       .put("password", "root");
 
-    sqlClientForSaving = MySQLClient.createNonShared(vertx, mySQLClientConfig);
-    sqlClientForListing = MySQLClient.createNonShared(vertx, mySQLClientConfig);
-
-    DataSaver dataSaver = new DataSaver(sqlClientForSaving);
-    DataLister<Data> dataLister = new DataLister<>(sqlClientForListing, new ListerStreamHandler());
-
-    vertx.deployVerticle(new SaverVerticle(dataSaver, "mytopic"), id -> vertexId.add(id.result()));
-    //vertx.deployVerticle(new ListerVerticle(dataLister), id -> vertexId.add(id.result()));
-
-		//vertx.deployVerticle(new PublisherVerticle("mytopic", "pub1"), id -> vertexId.add(id.result()));
-    //vertx.deployVerticle(new PublisherVerticle("mytopic", "pub2"), id -> vertexId.add(id.result()));
-    //vertx.deployVerticle(new PublisherVerticle("mytopic", "pub3"), id -> vertexId.add(id.result()));
-    vertx.deployVerticle(new PublisherVerticle("mytopic", "pub4"), id -> vertexId.add(id.result()));
-
-    //vertx.deployVerticle(new ConsumerVerticle("mytopic", "con1"), id -> vertexId.add(id.result()));
+    createDBReaderVerticle(mySQLClientConfig);
+    createDBWriterVerticle(mySQLClientConfig);
+    triggerDBReader();
+    triggerDBWriter();
 	}
 
 	@Override
 	public void stop(Future stopFuture) throws Exception {
 		System.out.println("MyVerticle stopped!");
 
-		sqlClientForListing.close();
-		sqlClientForSaving.close();
+		sqlWriterClient.close();
+		sqlReaderClient.close();
 
 		for (String id: vertexId) {
       vertx.undeploy(id);

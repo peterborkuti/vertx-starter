@@ -1,4 +1,4 @@
-package io.vertx.starter;
+package io.vertex.starter.common.data;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;

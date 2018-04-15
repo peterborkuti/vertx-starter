@@ -1,4 +1,4 @@
-package io.vertx.starter;
+package io.vertex.starter.db;
 
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
@@ -7,7 +7,7 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 
-public abstract class AbstractDataProcessor<T> implements Handler<T> {
+public abstract class AbstractDataProcessor implements Handler<Message<String>> {
   public final String SQL;
 
   public final SQLClient sqlClient;
@@ -17,9 +17,9 @@ public abstract class AbstractDataProcessor<T> implements Handler<T> {
     this.SQL = sql;
   }
 
-  public abstract void processData(SQLConnection connection, T data);
+  public abstract void processData(SQLConnection connection, Message<String> data);
 
-  public void process(T data) {
+  public void process(Message<String> data) {
     sqlClient.getConnection(res -> {
       if (res.succeeded()) {
         SQLConnection connection = res.result();
@@ -35,7 +35,7 @@ public abstract class AbstractDataProcessor<T> implements Handler<T> {
   }
 
   @Override
-  public void handle(T event) {
+  public void handle(Message<String> event) {
     logger.info(AbstractDataProcessor.class.getName() + " handle");
     process(event);
   }
