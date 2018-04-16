@@ -18,8 +18,9 @@ public class ReaderDataProcessor extends AbstractDataProcessor {
   }
 
   @Override
-  public void processData(SQLConnection connection, Message<String> data) {
-    JsonArray params = new JsonArray();
+  public void processData(SQLConnection connection, String jsonString) {
+    if ("".equals(jsonString)) jsonString = "[]";
+    JsonArray params = new JsonArray(jsonString);
 
     connection.queryStreamWithParams(SQL, params, streamHandler);
 

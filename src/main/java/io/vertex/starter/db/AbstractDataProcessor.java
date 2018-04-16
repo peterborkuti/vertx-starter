@@ -17,15 +17,15 @@ public abstract class AbstractDataProcessor implements Handler<Message<String>> 
     this.SQL = sql;
   }
 
-  public abstract void processData(SQLConnection connection, Message<String> data);
+  public abstract void processData(SQLConnection connection, String jsonString);
 
-  public void process(Message<String> data) {
+  public void process(String jsonString) {
     sqlClient.getConnection(res -> {
       if (res.succeeded()) {
         SQLConnection connection = res.result();
 
         logger.info("call processData");
-        processData(connection, data);
+        processData(connection, jsonString);
 
         connection.close();
       } else {
@@ -37,7 +37,7 @@ public abstract class AbstractDataProcessor implements Handler<Message<String>> 
   @Override
   public void handle(Message<String> event) {
     logger.info(AbstractDataProcessor.class.getName() + " handle");
-    process(event);
+    process(event.body().toString());
   }
 
   private final Logger logger = LoggerFactory.getLogger(AbstractDataProcessor.class.getName());

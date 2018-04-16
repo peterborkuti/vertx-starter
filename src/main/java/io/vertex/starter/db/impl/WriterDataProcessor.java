@@ -14,9 +14,9 @@ public class WriterDataProcessor extends AbstractDataProcessor {
     super(sqlClient, insertData);
   }
 
-  public void processData(SQLConnection connection, Message<String> data) {
-    JsonArray params = Data.createFromJsonString(data.body()).toJsonArray();
-    System.out.println("save" + data.body());
+  public void processData(SQLConnection connection, String data) {
+    JsonArray params = Data.createFromJsonString(data).toJsonArray();
+    System.out.println("save" + data);
 
     connection.updateWithParams(SQL, params, res -> {
       if (!res.succeeded()) {

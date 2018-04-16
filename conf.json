@@ -6,15 +6,17 @@
   },
   "sql": {
     "checktable": "select * from data",
-    "createtable": "create table data (msg int)",
+    "createtable": "CREATE TABLE data (id MEDIUMINT NOT NULL AUTO_INCREMENT, msg int, PRIMARY KEY (id))",
     "listdata": "select msg from data",
-    "insertdata": "insert into data values (?)"
+    "listfromto": "select msg from data where id >= ? and id <= ?",
+    "insertdata": "insert into data values (null, ?)",
+    "lastdata": "SELECT msg FROM data WHERE id=(SELECT MAX(id) FROM data)"
   },
   "rest": {
     "api": "api",
     "last": "getLast",
     "all": "getAll",
-    "list": "list"
+    "list": "list/:from/:to"
   },
   "http": {
     "port": 8082

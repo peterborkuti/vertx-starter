@@ -38,14 +38,15 @@ public class MainVerticle extends AbstractVerticle {
     Utils.createTableIfNotExists(vertx, mySQLClientConfig, Utils.getSQLConfig(config()));
 
     createDBReaderVerticle(mySQLClientConfig);
-    createDBWriterVerticle(mySQLClientConfig);
+    //createDBWriterVerticle(mySQLClientConfig);
     //triggerDBReader();
-    triggerDBWriter();
+    //triggerDBWriter();
 
     vertx.deployVerticle(
       new WebServerVerticle(
         Utils.getHttpConfig(config()).getInteger("port"),
-        Utils.getSQLConfig(config()).getString("listdata")
+        config().getJsonObject("rest"),
+        Utils.getSQLConfig(config())
       )
     );
 	}
