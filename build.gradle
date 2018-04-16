@@ -18,11 +18,14 @@ def doOnChange = './gradlew classes'
 
 dependencies {
   compile "io.vertx:vertx-core:$vertxVersion"
+
   compile "io.vertx:vertx-mysql-postgresql-client:$vertxVersion"
   compile "io.vertx:vertx-web:$vertxVersion"
 
   testCompile "junit:junit:4.12"
   testCompile "io.vertx:vertx-unit:$vertxVersion"
+  testCompile group: 'org.mockito', name: 'mockito-core', version: '2.18.0'
+  testCompile "io.vertx:vertx-codegen:$vertxVersion"
   compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 }
 

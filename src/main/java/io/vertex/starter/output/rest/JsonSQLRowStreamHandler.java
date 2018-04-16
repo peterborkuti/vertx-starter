@@ -29,7 +29,7 @@ public class JsonSQLRowStreamHandler implements SQLRowStreamHandler {
 
     data.clear();
 
-    return "";
+    return json;
   }
 
   /**

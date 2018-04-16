@@ -37,7 +37,7 @@ public abstract class AbstractDataProcessor implements Handler<Message<String>> 
   @Override
   public void handle(Message<String> event) {
     logger.info(AbstractDataProcessor.class.getName() + " handle");
-    process(event.body().toString());
+    process(event.body());
   }
 
   private final Logger logger = LoggerFactory.getLogger(AbstractDataProcessor.class.getName());
