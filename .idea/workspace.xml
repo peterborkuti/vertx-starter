@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="10ee4fd4-fdeb-41c4-8f78-c97666d298c9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conf.json" beforeDir="false" afterPath="$PROJECT_DIR$/conf.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/AbstractDataProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/AbstractDataProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/impl/ReaderDataProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/impl/ReaderDataProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/impl/WriterDataProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/impl/WriterDataProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/io/vertex/starter/output/rest/WebServerVerticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/vertex/starter/output/rest/WebServerVerticle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/io/vertx/starter/MainVerticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/vertx/starter/MainVerticle.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -28,7 +21,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="WebServerVerticle.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainVerticle.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/vertx/starter/MainVerticle.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret lean-forward="true" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1097#1105#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WebServerVerticle.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/vertex/starter/output/rest/WebServerVerticle.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="193">
@@ -477,10 +483,10 @@
         <option value="$PROJECT_DIR$/src/main/java/io/vertx/starter/QueryStreamHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/AbstractDataProcessor.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/impl/WriterDataProcessor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/vertx/starter/MainVerticle.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/vertex/starter/db/impl/ReaderDataProcessor.java" />
         <option value="$PROJECT_DIR$/conf.json" />
         <option value="$PROJECT_DIR$/src/main/java/io/vertex/starter/output/rest/WebServerVerticle.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/vertx/starter/MainVerticle.java" />
       </list>
     </option>
   </component>
@@ -491,8 +497,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="2925" />
-    <option name="y" value="196" />
+    <option name="x" value="198" />
+    <option name="y" value="506" />
     <option name="width" value="1489" />
     <option name="height" value="778" />
   </component>
@@ -788,15 +794,15 @@
       <workItem from="1523428443887" duration="5926000" />
       <workItem from="1523441600276" duration="8600000" />
       <workItem from="1523518112061" duration="13742000" />
-      <workItem from="1523860714311" duration="8429000" />
+      <workItem from="1523860714311" duration="10351000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36697000" />
+    <option name="totallyTimeSpent" value="38619000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2277" y="102" width="1489" height="778" extended-state="0" />
+    <frame x="198" y="506" width="1489" height="778" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -805,15 +811,15 @@
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5003358" side_tool="true" visible="true" weight="0.5402985" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.5402985" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49966422" visible="true" weight="0.5402985" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2887844" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2887844" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -1051,17 +1057,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/vertx/starter/MainVerticle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="115">
-          <caret line="40" column="6" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1097#1105#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.vertx/vertx-mysql-postgresql-client/3.5.1/ba33d62f17f5e69ee41281272ffdd8783e70fa41/vertx-mysql-postgresql-client-3.5.1-sources.jar!/io/vertx/ext/asyncsql/impl/VertxEventLoopExecutionContext.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
@@ -1136,6 +1131,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="193">
           <caret line="102" selection-start-line="102" selection-end-line="102" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/vertx/starter/MainVerticle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1097#1105#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

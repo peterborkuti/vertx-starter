@@ -38,9 +38,9 @@ public class MainVerticle extends AbstractVerticle {
     Utils.createTableIfNotExists(vertx, mySQLClientConfig, Utils.getSQLConfig(config()));
 
     createDBReaderVerticle(mySQLClientConfig);
-    //createDBWriterVerticle(mySQLClientConfig);
-    //triggerDBReader();
-    //triggerDBWriter();
+    createDBWriterVerticle(mySQLClientConfig);
+    triggerDBReader();
+    triggerDBWriter();
 
     vertx.deployVerticle(
       new WebServerVerticle(
