@@ -1,5 +1,6 @@
 package io.vertex.starter.db;
 
+import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.logging.Logger;
@@ -20,18 +21,20 @@ public abstract class AbstractDataProcessor implements Handler<Message<String>> 
   public abstract void processData(SQLConnection connection, String jsonString);
 
   public void process(String jsonString) {
-    sqlClient.getConnection(res -> {
-      if (res.succeeded()) {
-        SQLConnection connection = res.result();
+    sqlClient.getConnection(res -> connectAndProcessData(res, jsonString));
+  }
 
-        logger.info("call processData");
-        processData(connection, jsonString);
+  private void connectAndProcessData(AsyncResult<SQLConnection> res, String jsonString) {
+    if (res.succeeded()) {
+      SQLConnection connection = res.result();
 
-        connection.close();
-      } else {
-        logger.error("ERROR got no connection", res.cause());
-      }
-    });
+      logger.info("call processData");
+      processData(connection, jsonString);
+
+      connection.close();
+    } else {
+      logger.error("ERROR got no connection", res.cause());
+    }
   }
 
   @Override

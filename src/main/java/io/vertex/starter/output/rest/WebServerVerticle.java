@@ -22,12 +22,14 @@ public class WebServerVerticle extends AbstractVerticle {
   public final JsonObject restConfig;
   public final JsonObject sqlConfig;
   public final String API;
+
   public WebServerVerticle(int port, JsonObject restConfig, JsonObject sqlConfig) {
     this.restConfig = restConfig;
     this.sqlConfig = sqlConfig;
     this.API = "/" + restConfig.getString("api") + "/";
     this.PORT = port;
   }
+
   @Override
   public void start(Future<Void> future) {
     Router router = Router.router(vertx);
@@ -45,7 +47,7 @@ public class WebServerVerticle extends AbstractVerticle {
     JsonObject sqlClientConfig = Utils.getDBConfig(config());
     SQLClient sqlReaderClient = MySQLClient.createNonShared(vertx, sqlClientConfig);
 
-    DBReaderStreamHandler streamHandler = new DBReaderStreamHandler(new JsonSQLRowStreamHandler(routingContext));
+    DBReaderStreamHandler streamHandler = new DBReaderStreamHandler(new JsonSQLRowStreamHandler(routingContext.response()));
 
     ReaderDataProcessor rdp =
       new ReaderDataProcessor(
@@ -61,13 +63,14 @@ public class WebServerVerticle extends AbstractVerticle {
     JsonObject sqlClientConfig = Utils.getDBConfig(config());
     SQLClient sqlReaderClient = MySQLClient.createNonShared(vertx, sqlClientConfig);
 
-    DBReaderStreamHandler streamHandler = new DBReaderStreamHandler(new JsonSQLRowStreamHandler(routingContext));
+    DBReaderStreamHandler streamHandler = new DBReaderStreamHandler(new JsonSQLRowStreamHandler(routingContext.response()));
 
     ReaderDataProcessor rdp =
       new ReaderDataProcessor(
         sqlReaderClient,
         streamHandler,
         sqlConfig.getString("lastdata"));
+
     logger.info("restLastRouter starts processing");
     rdp.process("");
     logger.info("restLastRouter ended");
@@ -81,7 +84,7 @@ public class WebServerVerticle extends AbstractVerticle {
     JsonObject sqlClientConfig = Utils.getDBConfig(config());
     SQLClient sqlReaderClient = MySQLClient.createNonShared(vertx, sqlClientConfig);
 
-    DBReaderStreamHandler streamHandler = new DBReaderStreamHandler(new JsonSQLRowStreamHandler(routingContext));
+    DBReaderStreamHandler streamHandler = new DBReaderStreamHandler(new JsonSQLRowStreamHandler(routingContext.response()));
 
     ReaderDataProcessor rdp =
       new ReaderDataProcessor(
@@ -95,6 +98,7 @@ public class WebServerVerticle extends AbstractVerticle {
   private int getPathParam(RoutingContext context, String paramName, int defaultValue) {
     String value = context.pathParam(paramName);
     Integer integerValue = null;
+
     try {
       integerValue = Integer.valueOf(value);
     } catch (NumberFormatException e){
