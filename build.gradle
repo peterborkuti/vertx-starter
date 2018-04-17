@@ -26,6 +26,7 @@ dependencies {
   testCompile "io.vertx:vertx-unit:$vertxVersion"
   testCompile group: 'org.mockito', name: 'mockito-core', version: '2.18.0'
   testCompile "io.vertx:vertx-codegen:$vertxVersion"
+  testCompile "io.vertx:vertx-config:$vertxVersion"
   compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.6.1'
 }
 

@@ -54,14 +54,20 @@ public class Utils {
   }
 
   public static JsonObject getSQLConfig(JsonObject config) {
-    JsonObject sqlConfig = config.getJsonObject("sql");
+    JsonObject sconfig = config.getJsonObject("sql");
 
-    return sqlConfig;
+    return sconfig;
   }
 
   public static JsonObject getHttpConfig(JsonObject config) {
-    JsonObject sqlConfig = config.getJsonObject("http");
+    JsonObject hconfig = config.getJsonObject("http");
 
-    return sqlConfig;
+    return hconfig;
+  }
+
+  public static JsonObject getRESTConfig(JsonObject config) {
+    JsonObject rconfig = config.getJsonObject("rest");
+
+    return rconfig;
   }
 }

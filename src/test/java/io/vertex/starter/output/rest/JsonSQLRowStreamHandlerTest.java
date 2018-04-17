@@ -1,4 +1,4 @@
-package io.vertex.starter.common.output.rest;
+package io.vertex.starter.output.rest;
 
 import io.vertex.starter.common.data.Data;
 import io.vertex.starter.output.rest.JsonSQLRowStreamHandler;
@@ -14,7 +14,7 @@ import static org.mockito.Mockito.*;
 public class JsonSQLRowStreamHandlerTest {
 
   @Test
-  public void testEndhandler() {
+  public void testHandlerBehaviourAndEndhandlerOutput() {
       HttpServerResponse response = mock(HttpServerResponse.class);
 
       JsonSQLRowStreamHandler jsh = new JsonSQLRowStreamHandler(response);

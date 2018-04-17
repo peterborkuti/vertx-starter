@@ -12,6 +12,7 @@
     <orderEntry type="module" module-name="vertx-starter_main" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-web:3.5.1" level="project" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-unit:3.5.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.vertx:vertx-config:3.5.1" level="project" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-auth-common:3.5.1" level="project" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-core:3.5.1" level="project" />
     <orderEntry type="library" name="Gradle: io.vertx:vertx-mysql-postgresql-client:3.5.1" level="project" />
